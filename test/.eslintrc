@@ -1,0 +1,11 @@
+{
+  "rules": {
+    "no-unused-expressions": 0
+  },
+  "globals": {
+    "React", false,
+    "expect": false,
+    "chai": false,
+    "sinon": false,
+  }
+}

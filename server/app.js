@@ -5,7 +5,7 @@ import cors from 'cors'
 
 import routes from './routes'
 
-// import db from './config/db'
+import db from './config/db'
 
 const errorHandler = (error, req, res) => {
   if (error.status && error.message) {

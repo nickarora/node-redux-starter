@@ -83,6 +83,8 @@
     "cors": "^2.7.1",
     "express": "^4.13.4",
     "lodash": "^4.11.2",
+    "mongodb-uri": "^0.9.7",
+    "mongoose": "^4.4.17",
     "react": "^15.0.1",
     "react-bootstrap": "^0.29.2",
     "react-dom": "^15.0.1",

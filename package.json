@@ -79,6 +79,9 @@
   },
   "dependencies": {
     "axios": "^0.11.0",
+    "body-parser": "^1.15.1",
+    "cors": "^2.7.1",
+    "express": "^4.13.4",
     "lodash": "^4.11.2",
     "react": "^15.0.1",
     "react-bootstrap": "^0.29.2",

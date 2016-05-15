@@ -4,7 +4,7 @@
   "description": "Starter Kit for Node and Redux",
   "main": "index.js",
   "scripts": {
-    "build": "node_modules/.bin/webpack",
+    "build": "webpack",
     "start": "nodemon server/index.js",
     "dev-server": "webpack-dev-server",
     "lint": "eslint . --ext .js --ext .jsx --cache || true",

@@ -1,0 +1,16 @@
+{
+  "todos": [
+    {
+      "note": "Take out the trash",
+      "complete": false
+    },
+    {
+      "note": "Call mom",
+      "complete": false
+    },
+    {
+      "note": "Go to the park",
+      "complete": false
+    }
+  ]
+}

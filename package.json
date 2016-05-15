@@ -7,6 +7,7 @@
     "build": "webpack",
     "start": "nodemon server/index.js",
     "dev-server": "webpack-dev-server",
+    "seed": "node server/tasks/seed-development.js",
     "lint": "eslint . --ext .js --ext .jsx --cache || true",
     "test": "NODE_ENV=test karma start"
   },
@@ -80,6 +81,7 @@
   },
   "dependencies": {
     "axios": "^0.11.0",
+    "bluebird": "^3.3.5",
     "body-parser": "^1.15.1",
     "cors": "^2.7.1",
     "express": "^4.13.4",

@@ -3,7 +3,7 @@ import path from 'path'
 import merge from 'webpack-merge'
 import autoprefixer from 'autoprefixer'
 
-const TARGET = process.env.npm_lifecycle_event
+const TARGET = process.env.NODE_ENV
 
 process.env.BABEL_ENV = TARGET
 
@@ -68,7 +68,7 @@ const common = {
   ],
 }
 
-const start = {
+const development = {
   devtool: 'cheap-module-source-map',
   entry: {
     main: [
@@ -91,7 +91,7 @@ const start = {
   ],
 }
 
-const build = {}
+const production = {}
 
 const test = {
   externals: {
@@ -103,13 +103,13 @@ const test = {
 
 const selectConfig = (target) => {
   switch (target) {
-    case 'build':
-      return merge.smart(sources, common, build)
+    case 'production':
+      return merge.smart(sources, common, production)
     case 'test':
       return merge.smart(common, test)
-    case 'start':
+    case 'development':
     default:
-      return merge.smart(sources, common, start)
+      return merge.smart(sources, common, development)
   }
 }
 

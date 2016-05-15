@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "build": "node_modules/.bin/webpack",
-    "start": "webpack-dev-server",
+    "dev-server": "webpack-dev-server",
     "lint": "eslint . --ext .js --ext .jsx --cache || true",
-    "test": "karma start"
+    "test": "NODE_ENV=test karma start"
   },
   "repository": {
     "type": "git",

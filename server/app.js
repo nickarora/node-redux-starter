@@ -7,7 +7,7 @@ import routes from './routes'
 
 import db from './config/db' // eslint-disable-line no-unused-vars
 
-const errorHandler = (error, req, res) => {
+const errorHandler = (error, req, res, next) => { // eslint-disable-line no-unused-vars
   if (error.status && error.message) {
     return res.status(error.status).send(error.message).end()
   }

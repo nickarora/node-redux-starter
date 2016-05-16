@@ -15,9 +15,9 @@ const PATHS = {
 }
 
 const sources = {
-  entry: {
-    main: path.join(PATHS.src, 'index.jsx'),
-  },
+  entry: [
+    'babel-polyfill',
+  ],
   output: {
     path: PATHS.dist,
     filename: 'app.js',
@@ -70,14 +70,12 @@ const common = {
 
 const development = {
   devtool: 'cheap-module-source-map',
-  entry: {
-    main: [
-      'react-hot-loader/patch',
-      'webpack-dev-server/client?http://localhost:8080',
-      'webpack/hot/only-dev-server',
-      path.join(PATHS.src, 'index.jsx'),
-    ],
-  },
+  entry: [
+    'react-hot-loader/patch',
+    'webpack-dev-server/client?http://localhost:8080',
+    'webpack/hot/only-dev-server',
+    path.join(PATHS.src, 'index.jsx'),
+  ],
   devServer: {
     contentBase: PATHS.dist,
     publicPath: '/',
@@ -88,10 +86,20 @@ const development = {
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify(TARGET),
+        PORT: JSON.stringify(process.env.PORT),
+      },
+    }),
   ],
 }
 
-const production = {}
+const production = {
+  entry: [
+    path.join(PATHS.src, 'index.jsx'),
+  ],
+}
 
 const test = {
   externals: {

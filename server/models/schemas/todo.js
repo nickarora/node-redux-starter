@@ -1,13 +1,12 @@
 /* eslint-disable no-underscore-dangle */
 import { Schema } from 'mongoose'
-import timestamps from 'mongoose-timestamp'
 
 const TodoSchema = new Schema({
   note: { type: String, required: true },
   complete: { type: Boolean, default: false, required: true },
+}, {
+  timestamps: true,
 })
-
-TodoSchema.plugin(timestamps)
 
 if (!TodoSchema.options.toJSON) {
   TodoSchema.options.toJSON = {}

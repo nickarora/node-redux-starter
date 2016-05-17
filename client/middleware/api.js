@@ -4,12 +4,8 @@ import config from 'config'
 const API_ROOT = config.endpoint
 
 const checkStatus = response => {
-  const { status, statusText } = response
-
-  if (!status || status < 200 || status >= 300) {
-    const err = new Error(statusText || status || 'Invalid Request.')
-    err.response = response.json()
-    throw err
+  if (!response.ok) {
+    throw new Error(response.statusText)
   }
 
   return response.json()
@@ -17,22 +13,25 @@ const checkStatus = response => {
 
 const apiMiddleware = () =>
   next => action => {
-    const { type, api, method } = action
+    const { type, api, method, body } = action
 
     if (!api) return next(action)
 
     const fullUrl = `${API_ROOT}${api}`
     const defaultParams = {
-      method: 'get',
       headers: {
         'Content-Type': 'application/json',
       },
     }
 
-    const reqConfig = method ? {
+    const reqConfig = {
       ...defaultParams,
-      method,
-    } : defaultParams
+      method: method || 'get',
+    }
+
+    if (body) {
+      reqConfig.body = JSON.stringify(body)
+    }
 
     const REQUEST = `${type}_REQUEST`
     const SUCCESS = `${type}_SUCCESS`
@@ -47,13 +46,9 @@ const apiMiddleware = () =>
         type: SUCCESS,
         payload: response,
       })
-
-      return true
     })
     .catch(error => {
       next({ type: FAILURE, payload: error })
-
-      return false
     })
   }
 

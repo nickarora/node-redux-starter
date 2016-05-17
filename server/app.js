@@ -12,7 +12,9 @@ const errorHandler = (error, req, res, next) => { // eslint-disable-line no-unus
     return res.status(error.status).send(error.message).end()
   }
 
-  return res.status(500).send('Internal Server Error!').end()
+  return res.status(500).send({
+    message: 'Internal Server Error!',
+  }).end()
 }
 
 const app = new Express()

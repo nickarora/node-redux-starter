@@ -4,7 +4,7 @@ import { Todo } from '../../models'
 const router = new Router()
 
 router.get('/', (req, res, next) =>
-  Todo.find({})
+  Todo.find({}).sort({ createdAt: 'desc' })
     .then(
       todos => res.status(200).json(todos),
       err => next(err)

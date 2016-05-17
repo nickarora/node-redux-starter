@@ -40,6 +40,7 @@ class Todos extends Component {
           <TodosList
             todos={todos}
             deleteTodo={actions.deleteTodo}
+            toggleTodo={actions.toggleTodo}
           />
         </Col>
       </Row>

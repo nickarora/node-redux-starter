@@ -1,10 +1,15 @@
 import React, { PropTypes } from 'react'
 import { Button } from 'react-bootstrap'
 
-const Todo = ({ todo, deleteTodo }) =>
-  <tr>
+const Todo = ({ todo, deleteTodo, toggleTodo }) =>
+  <tr className='todo'>
     <td>
-      <h5 className={todo.complete ? 'todo-complete' : ''}>
+      <input
+        type='checkbox'
+        checked={todo.complete}
+        onChange={toggleTodo}
+      />
+      <h5 className={`note ${todo.complete ? 'complete' : ''}`}>
         {todo.note}
       </h5>
     </td>
@@ -20,6 +25,7 @@ const Todo = ({ todo, deleteTodo }) =>
 Todo.propTypes = {
   todo: PropTypes.object.isRequired,
   deleteTodo: PropTypes.func.isRequired,
+  toggleTodo: PropTypes.func.isRequired,
 }
 
 export default Todo

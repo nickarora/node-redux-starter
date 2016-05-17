@@ -11,10 +11,10 @@ router.get('/', (req, res, next) =>
     )
 )
 
-router.put('/', (req, res, next) =>
+router.put('/:id', (req, res, next) =>
   Todo.findOneAndUpdate(
-    { _id: req.body.todo.id },
-    { note: req.body.todo.note, complete: req.body.todo.complete },
+    { _id: req.params.id },
+    req.body.todo,
     { new: true }
   ).then(
     updatedTodo => res.status(200).json(updatedTodo),

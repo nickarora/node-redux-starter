@@ -1,19 +1,30 @@
-import React, { PropTypes } from 'react'
+import React, { Component, PropTypes } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { Col, Row, Button } from 'react-bootstrap'
+import { Col, Row } from 'react-bootstrap'
 import * as TodosActions from 'actions/todos'
 
 import { TodosList } from 'components'
 
-const Todos = ({ todos, actions }) =>
-  <Row>
-    <Col xs={8}>
-      <h2>Todos</h2>
-      <Button className='fetch-todos-button' onClick={actions.fetchTodos}>Fetch Todos</Button>
-      <TodosList todos={todos} />
-    </Col>
-  </Row>
+class Todos extends Component {
+  componentWillMount() {
+    const { actions } = this.props
+    actions.fetchTodos()
+  }
+
+  render() {
+    const { todos } = this.props
+
+    return (
+      <Row>
+        <Col xs={8}>
+          <h2>Todos</h2>
+          <TodosList todos={todos} />
+        </Col>
+      </Row>
+    )
+  }
+}
 
 const mapStateToProps = ({ todos }) => ({
   todos,

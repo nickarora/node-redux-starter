@@ -1,4 +1,4 @@
-import { GET_TODOS_SUCCESS, CREATE_TODO_SUCCESS } from 'constants'
+import { GET_TODOS_SUCCESS, CREATE_TODO_SUCCESS, DELETE_TODO_SUCCESS } from 'constants'
 
 const initialState = []
 
@@ -11,6 +11,8 @@ const reducer = (state = initialState, action) => {
         action.payload,
         ...state,
       ]
+    case DELETE_TODO_SUCCESS:
+      return state.filter(todo => todo.id !== action.payload.id)
     default:
       return state
   }

@@ -36,8 +36,8 @@ router.post('/', (req, res, next) => {
   )
 })
 
-router.delete('/', (req, res, next) => {
-  Todo.remove({ _id: req.body.todo.id })
+router.delete('/:id', (req, res, next) => {
+  Todo.findOneAndRemove({ _id: req.params.id })
   .then(
     deletedTodo => res.status(200).json(deletedTodo),
     err => next(err)

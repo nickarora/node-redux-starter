@@ -1,4 +1,4 @@
-import { GET_TODOS, CREATE_TODO } from 'constants'
+import { GET_TODOS, CREATE_TODO, DELETE_TODO } from 'constants'
 
 export const fetchTodos = () => (
   {
@@ -15,5 +15,13 @@ export const createTodo = todo => (
     body: {
       todo,
     },
+  }
+)
+
+export const deleteTodo = todo => (
+  {
+    type: DELETE_TODO,
+    api: `/api/todos/${todo.id}`,
+    method: 'delete',
   }
 )

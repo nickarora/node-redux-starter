@@ -1,0 +1,16 @@
+{
+  "todos": [
+    {
+      "note": "todo1",
+      "complete": false
+    },
+    {
+      "note": "todo2",
+      "complete": false
+    },
+    {
+      "note": "todo3",
+      "complete": false
+    }
+  ]
+}

@@ -3,7 +3,7 @@ import app from './app'
 
 const PORT = process.env.PORT || 8000
 
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.info('Server listening on port', PORT)
 })
 
@@ -16,3 +16,5 @@ process.on('uncaughtException', err => {
 process.on('SIGTERM', err => {
   console.warn('Received SIGTERM. Shutting down.', err)
 })
+
+export default server

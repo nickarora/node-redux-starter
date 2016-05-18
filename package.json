@@ -9,7 +9,8 @@
     "dev-server": "webpack-dev-server",
     "seed": "node server/tasks/seed-development.js",
     "lint": "eslint . --ext .js --ext .jsx --cache || true",
-    "test": "NODE_ENV=test karma start"
+    "test": "NODE_ENV=test karma start",
+    "api-test": "NODE_ENV=test mocha server/test/index.js"
   },
   "repository": {
     "type": "git",
@@ -46,6 +47,7 @@
     "babel-register": "^6.7.2",
     "chai": "^3.5.0",
     "chai-enzyme": "^0.4.2",
+    "chai-http": "^2.0.1",
     "cheerio": "^0.20.0",
     "css-loader": "^0.23.1",
     "enzyme": "^2.2.0",

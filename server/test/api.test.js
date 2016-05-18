@@ -72,7 +72,7 @@ describe('Todos', () => {
           complete: false,
         },
       })
-      .end((err, res) => {
+      .end(() => {
         Todo.find({}, (err, todos) => {
           expect(todos.length).to.equal(4)
           done()
@@ -81,10 +81,10 @@ describe('Todos', () => {
   })
 
   it('should delete a todo on /api/todos/:id DELETE', (done) => {
-    Todo.findOne({ note: 'todo1' }, (err, todo) => {
+    Todo.findOne({ note: 'todo1' }, (error, todo) => {
       chai.request(server)
         .delete(`/api/todos/${todo.id}`)
-        .end((err, res) => {
+        .end(() => {
           Todo.find({}, (err, todos) => {
             expect(todos.length).to.equal(2)
             done()
@@ -94,21 +94,20 @@ describe('Todos', () => {
   })
 
   it('should update a todo on /api/todos/:id PUT', (done) => {
-    Todo.findOne({ note: 'todo1' }, (err, todo) => {
+    Todo.findOne({ note: 'todo1' }, (error, todo) => {
       chai.request(server)
         .put(`/api/todos/${todo.id}`)
         .send({
           todo: {
-            note: 'new note'
-          }
+            note: 'new note',
+          },
         })
-        .end((err, res) => {
-          Todo.findOne({ _id: todo.id }, (err, todo) => {
-            expect(todo.note).to.equal('new note')
+        .end(() => {
+          Todo.findOne({ _id: todo.id }, (err, updatedTodo) => {
+            expect(updatedTodo.note).to.equal('new note')
             done()
           })
         })
     })
   })
-
 })

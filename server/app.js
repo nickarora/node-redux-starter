@@ -2,6 +2,7 @@ import Express from 'express'
 import bodyParser from 'body-parser'
 import path from 'path'
 import cors from 'cors'
+import morgan from 'morgan'
 
 import routes from './routes'
 
@@ -21,6 +22,7 @@ const app = new Express()
 
 // Middleware
 app.use(cors())
+app.use(morgan(process.env.NODE_ENV === 'development' ? 'dev' : 'common'))
 app.use(bodyParser.json({ type: ['application/json'] }))
 
 // Routes

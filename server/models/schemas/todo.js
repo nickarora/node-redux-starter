@@ -1,5 +1,5 @@
-/* eslint-disable no-underscore-dangle */
 import { Schema } from 'mongoose'
+import transform from '../util/transform'
 
 const TodoSchema = new Schema({
   note: { type: String, required: true },
@@ -8,25 +8,4 @@ const TodoSchema = new Schema({
   timestamps: true,
 })
 
-if (!TodoSchema.options.toJSON) {
-  TodoSchema.options.toJSON = {}
-}
-
-TodoSchema.options.toJSON.transform = (doc, ret) => {
-  const newRet = ret
-  newRet.id = newRet._id
-  delete newRet._id
-  delete newRet.__v // version key
-  return newRet
-}
-
-
-if (!TodoSchema.options.toObject) TodoSchema.options.toObject = {}
-TodoSchema.options.toObject.transform = (doc, ret) => {
-  const newRet = ret
-  newRet.id = newRet._id
-  delete newRet.__v
-  return newRet
-}
-
-export default TodoSchema
+export default transform(TodoSchema)

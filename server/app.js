@@ -5,6 +5,7 @@ import cors from 'cors'
 import morgan from 'morgan'
 
 import routes from './routes'
+import auth from './auth'
 
 import db from './config/db' // eslint-disable-line no-unused-vars
 
@@ -27,6 +28,7 @@ app.use(bodyParser.json({ type: ['application/json'] }))
 
 // Routes
 app.use('/api', routes)
+app.use('/auth', auth)
 app.use('/', Express.static(path.resolve(__dirname, '../dist')))
 app.use(errorHandler)
 

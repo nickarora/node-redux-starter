@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import { User } from '../models'
 
-import valid from '../util/validateEmail'
+import { userToken, validateEmail } from '../util'
 
 const router = new Router()
 
@@ -13,7 +13,7 @@ router.post('/signup', (req, res, next) => {
     res.status(422).send({ message: 'You must provide an email and password.' })
   }
 
-  if (!valid(email)) {
+  if (!validateEmail(email)) {
     res.status(422).send({ message: 'You must provide a valid email address.' })
   }
 
@@ -29,8 +29,8 @@ router.post('/signup', (req, res, next) => {
 
     newUser.save()
       .then(
-        createdUser => res.status(200).json({
-          email: createdUser.email,
+        user => res.status(200).json({
+          token: userToken(user),
           success: true,
         }),
         err => next(err)

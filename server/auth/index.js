@@ -2,13 +2,7 @@ import { Router } from 'express'
 import { User } from '../models'
 import { userToken, validateEmail } from '../util'
 
-import jwtStrategy from '../services/passport/jwt'
-import localStrategy from '../services/passport/local'
-import passport from 'passport'
-passport.use(jwtStrategy)
-passport.use(localStrategy)
-const requireAuth = passport.authenticate('jwt', { session: false })
-const requireSignin = passport.authenticate('local', { session: false })
+import { requireAuth, requireSignin } from '../services/passport'
 
 const router = new Router()
 

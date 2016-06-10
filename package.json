@@ -86,6 +86,7 @@
   "dependencies": {
     "babel-polyfill": "^6.8.0",
     "babel-runtime": "^6.6.1",
+    "bcrypt-nodejs": "0.0.3",
     "bluebird": "^3.3.5",
     "body-parser": "^1.15.1",
     "cors": "^2.7.1",

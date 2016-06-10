@@ -2,10 +2,13 @@ import { Router } from 'express'
 import { User } from '../models'
 import { userToken, validateEmail } from '../util'
 
-import passportStrategy from '../services/passport'
+import jwtStrategy from '../services/passport/jwt'
+import localStrategy from '../services/passport/local'
 import passport from 'passport'
-passport.use(passportStrategy)
+passport.use(jwtStrategy)
+passport.use(localStrategy)
 const requireAuth = passport.authenticate('jwt', { session: false })
+const requireSignin = passport.authenticate('local', { session: false })
 
 const router = new Router()
 
@@ -50,6 +53,13 @@ router.post('/signup', (req, res, next) => {
       existingUser => signup(existingUser),
       err => next(err)
     )
+})
+
+router.post('/signin', requireSignin, (req, res) => {
+  res.send({
+    token: userToken(req.user),
+    success: true,
+  })
 })
 
 export default router

@@ -1,3 +1,4 @@
+/* eslint-disable func-names */
 import { Schema } from 'mongoose'
 import transform from '../util/transform'
 import Promise from 'bluebird'
@@ -13,7 +14,7 @@ const UserSchema = new Schema({
   timestamps: true,
 })
 
-UserSchema.pre('save', function(next) { // eslint-disable-line func-names
+UserSchema.pre('save', function(next) {
   bcrypt.genSaltAsync(SALT_ROUNDS)
     .then(salt => bcrypt.hashAsync(this.password, salt, null))
     .then(hash => {
@@ -22,5 +23,12 @@ UserSchema.pre('save', function(next) { // eslint-disable-line func-names
     })
     .catch(err => next(err))
 })
+
+UserSchema.methods.comparePassword = function(candidatePassword, callback) {
+  bcrypt.compare(candidatePassword, this.password, (err, isMatch) => {
+    if (err) { return callback(err) }
+    return callback(null, isMatch)
+  })
+}
 
 export default transform(UserSchema)

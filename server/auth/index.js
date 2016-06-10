@@ -1,9 +1,17 @@
 import { Router } from 'express'
 import { User } from '../models'
-
 import { userToken, validateEmail } from '../util'
 
+import passportStrategy from '../services/passport'
+import passport from 'passport'
+passport.use(passportStrategy)
+const requireAuth = passport.authenticate('jwt', { session: false })
+
 const router = new Router()
+
+router.get('/test', requireAuth, (req, res) => {
+  res.send({ message: 'you are authenticated!' })
+})
 
 router.post('/signup', (req, res, next) => {
   const email = req.body.email

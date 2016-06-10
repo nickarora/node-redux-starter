@@ -24,10 +24,12 @@ UserSchema.pre('save', function(next) {
     .catch(err => next(err))
 })
 
-UserSchema.methods.comparePassword = function(candidatePassword, callback) {
-  bcrypt.compareAsync(candidatePassword, this.password)
-    .then(isMatch => callback(null, isMatch))
-    .catch(err => callback(err))
+UserSchema.methods.comparePassword = function(candidatePassword) {
+  return new Promise((resolve, reject) => {
+    bcrypt.compareAsync(candidatePassword, this.password)
+      .then(resolve)
+      .catch(reject)
+  })
 }
 
 export default transform(UserSchema)

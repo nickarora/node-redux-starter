@@ -6,11 +6,12 @@ const localOptions = { usernameField: 'email' }
 const verifyCredentials = (user, password, done) => {
   if (!user) { return done(null, false) }
 
-  user.comparePassword(password, (err, isMatch) => {
-    if (err) { return done(err) }
-    if (!isMatch) { return done(null, false) }
-    return done(null, user)
-  })
+  user.comparePassword(password)
+    .then(isMatch => {
+      if (!isMatch) { return done(null, false) }
+      return done(null, user)
+    })
+    .catch(err => done(err))
 }
 
 const localLogin = new LocalStrategy(localOptions, (email, password, done) => {

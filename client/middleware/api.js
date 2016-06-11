@@ -7,7 +7,12 @@ const API_ROOT = config.endpoint
 
 const checkStatus = response => {
   if (!response.ok) {
-    throw new Error(response.statusText)
+    const error = new Error(response.statusText)
+    return response.json()
+      .then(responseBody => {
+        error.message = responseBody.message || error.message
+        throw error
+      })
   }
 
   return response.json()

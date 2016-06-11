@@ -2,13 +2,9 @@ import { Router } from 'express'
 import { User } from '../models'
 import { userToken, validateEmail } from '../util'
 
-import { requireAuth, requireSignin } from '../services/passport'
+import { requireSignin } from '../services/passport'
 
 const router = new Router()
-
-router.get('/test', requireAuth, (req, res) => {
-  res.send({ message: 'you are authenticated!' })
-})
 
 router.post('/signup', (req, res, next) => {
   const email = req.body.email

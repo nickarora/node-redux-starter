@@ -15,7 +15,7 @@ const errorHandler = (error, req, res, next) => { // eslint-disable-line no-unus
   }
 
   return res.status(500).send({
-    message: 'Internal Server Error!',
+    message: 'Internal Server Error',
   }).end()
 }
 

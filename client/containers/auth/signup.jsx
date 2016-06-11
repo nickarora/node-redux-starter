@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react'
+import React, { PropTypes, Component } from 'react'
 import { Field, reduxForm, reset } from 'redux-form'
 import { Col, Row, Button } from 'react-bootstrap'
 
@@ -23,65 +23,75 @@ const submitSignup = (e, { actions, form, resetForm }) => {
   resetForm('signupForm')
 }
 
-const Signup = (props) =>
-  <form onSubmit={(e) => submitSignup(e, props)}>
-    <Row>
-      <Col xs={6}>
-        <h3>Sign Up</h3>
-      </Col>
-    </Row>
-    <Row className='form-group'>
-      <Col xs={6}>
-        <Field
-          className='form-control'
-          component='input'
-          type='text'
-          name='email'
-          placeholder='email'
-        />
-      </Col>
-    </Row>
-    <Row className='form-group'>
-      <Col xs={6}>
-        <Field
-          className='form-control'
-          component='input'
-          type='password'
-          name='password'
-          placeholder='password'
-        />
-      </Col>
-    </Row>
-    <Row className='form-group'>
-      <Col xs={6}>
-        <Field
-          className='form-control'
-          component='input'
-          type='password'
-          name='passwordConfirmation'
-          placeholder='confirm password'
-        />
-      </Col>
-    </Row>
-    <Row className='form-group'>
-      <Col xs={6}>
-        <Button className='form-control' bsStyle='success' type='submit'>Sign Up</Button>
-      </Col>
-    </Row>
-    {
-      props.auth.error &&
-        <Row className='form-group'>
+class Signup extends Component {
+  componentWillMount() {
+    this.props.actions.clearAuthErrors()
+  }
+
+  render() {
+    return (
+      <form onSubmit={(e) => submitSignup(e, this.props)}>
+        <Row>
           <Col xs={6}>
-            <div className='alert alert-danger text-center'>{props.auth.error}</div>
+            <h3>Sign Up</h3>
           </Col>
         </Row>
-    }
-  </form>
+        <Row className='form-group'>
+          <Col xs={6}>
+            <Field
+              className='form-control'
+              component='input'
+              type='text'
+              name='email'
+              placeholder='email'
+            />
+          </Col>
+        </Row>
+        <Row className='form-group'>
+          <Col xs={6}>
+            <Field
+              className='form-control'
+              component='input'
+              type='password'
+              name='password'
+              placeholder='password'
+            />
+          </Col>
+        </Row>
+        <Row className='form-group'>
+          <Col xs={6}>
+            <Field
+              className='form-control'
+              component='input'
+              type='password'
+              name='passwordConfirmation'
+              placeholder='confirm password'
+            />
+          </Col>
+        </Row>
+        <Row className='form-group'>
+          <Col xs={6}>
+            <Button className='form-control' bsStyle='success' type='submit'>Sign Up</Button>
+          </Col>
+        </Row>
+        {
+          this.props.auth.error &&
+            <Row className='form-group'>
+              <Col xs={6}>
+                <div className='alert alert-danger text-center'>{this.props.auth.error}</div>
+              </Col>
+            </Row>
+        }
+      </form>
+    )
+  }
+}
 
 Signup.propTypes = {
-  form: PropTypes.object.isRequired,
+  actions: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
   resetForm: PropTypes.func.isRequired,
+  form: PropTypes.object.isRequired,
 }
 
 const mapStateToProps = ({ form, auth }) => ({

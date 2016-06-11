@@ -1,4 +1,4 @@
-import { SIGNIN, SIGNOUT, SIGNUP, SIGNUP_MISMATCH } from 'constants'
+import { CLEAR_AUTH_ERRORS, SIGNIN, SIGNOUT, SIGNUP, SIGNUP_MISMATCH } from 'constants'
 import { browserHistory } from 'react-router'
 
 export const signin = credentials => (
@@ -38,5 +38,11 @@ export const signup = credentials => (
 export const signupMismatch = () => (
   {
     type: SIGNUP_MISMATCH,
+  }
+)
+
+export const clearAuthErrors = () => (
+  {
+    type: CLEAR_AUTH_ERRORS,
   }
 )

@@ -1,4 +1,5 @@
 import {
+  CLEAR_AUTH_ERRORS,
   SIGNIN_SUCCESS,
   SIGNIN_FAILURE,
   SIGNUP_SUCCESS,
@@ -13,6 +14,8 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case CLEAR_AUTH_ERRORS:
+      return { ...state, error: '' }
     case SIGNUP_SUCCESS:
     case SIGNIN_SUCCESS:
       return { authenticated: true, error: '' }

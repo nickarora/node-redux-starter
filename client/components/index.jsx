@@ -1,5 +1,5 @@
 export { default as Header } from './header'
 export { default as Home } from './home'
-export { default as TodosList } from './todos-list'
-export { default as Todo } from './todo'
-export { default as TodoForm } from './todo-form'
+export { default as TodosList } from './todos/todos-list'
+export { default as Todo } from './todos/todo'
+export { default as TodoForm } from './todos/todo-form'

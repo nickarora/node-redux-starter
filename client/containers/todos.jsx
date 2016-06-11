@@ -17,16 +17,16 @@ class Todos extends Component {
   createTodo(e) {
     e.preventDefault()
     const { actions, form, resetForm } = this.props
-    const { createTodo } = form
+    const { createTodoForm } = form
 
-    if (!createTodo.values || !createTodo.values.note) return
+    if (!createTodoForm.values || !createTodoForm.values.note) return
 
     actions.createTodo({
-      note: createTodo.values.note,
+      note: createTodoForm.values.note,
       complete: false,
     })
 
-    resetForm('createTodo')
+    resetForm('createTodoForm')
   }
 
   render() {
@@ -35,7 +35,7 @@ class Todos extends Component {
     return (
       <Row>
         <Col xs={8}>
-          <h2>Todos</h2>
+          <h3>Todos</h3>
           <TodoForm createTodo={e => this.createTodo(e)} />
           <TodosList
             todos={todos}

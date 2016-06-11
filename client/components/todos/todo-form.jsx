@@ -24,4 +24,4 @@ TodoForm.propTypes = {
   createTodo: PropTypes.func.isRequired,
 }
 
-export default reduxForm({ form: 'createTodo' })(TodoForm)
+export default reduxForm({ form: 'createTodoForm' })(TodoForm)

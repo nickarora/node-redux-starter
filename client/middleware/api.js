@@ -1,4 +1,6 @@
 import 'isomorphic-fetch'
+import { browserHistory } from 'react-router'
+
 import config from 'config'
 
 const API_ROOT = config.endpoint
@@ -11,9 +13,13 @@ const checkStatus = response => {
   return response.json()
 }
 
+const applyRedirect = (redirect, type) => {
+  if (redirect && redirect[type]) browserHistory.push(redirect[type])
+}
+
 const apiMiddleware = () =>
   next => action => {
-    const { type, api, method, body } = action
+    const { type, api, method, body, redirect, session } = action
 
     if (!api) return next(action)
 
@@ -42,12 +48,15 @@ const apiMiddleware = () =>
     return fetch(fullUrl, reqConfig)
     .then(checkStatus)
     .then(response => {
+      applyRedirect(redirect, 'success')
+      if (session) sessionStorage[session] = response[session]
       next({
         type: SUCCESS,
         payload: response,
       })
     })
     .catch(error => {
+      applyRedirect(redirect, 'failure')
       next({ type: FAILURE, payload: error })
     })
   }

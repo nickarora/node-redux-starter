@@ -7,7 +7,7 @@ import * as CounterActions from 'actions/counter'
 const Counter = ({ counter, actions }) =>
   <Row>
     <Col xs={8}>
-      <h1>Count: {counter}</h1>
+      <h3>Count: {counter}</h3>
       <ButtonToolbar>
         <Button onClick={actions.increment}>+</Button>
         <Button onClick={actions.decrement}>-</Button>

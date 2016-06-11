@@ -5,7 +5,7 @@ import { Col, Row } from 'react-bootstrap'
 const Home = () =>
   <Row>
     <Col xs={8}>
-      <h1>Home</h1>
+      <h3>Home</h3>
       <p className='welcome-message'>Welcome to the Node Redux Starter Kit</p>
     </Col>
   </Row>

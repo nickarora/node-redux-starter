@@ -10,7 +10,7 @@ const checkStatus = response => {
     const error = new Error(response.statusText)
     return response.json()
       .then(responseBody => {
-        error.message = responseBody.message || error.message
+        error.friendlyErr = responseBody.message || 'Oops! Something went wrong. Try again later.'
         throw error
       })
   }

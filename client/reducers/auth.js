@@ -11,9 +11,6 @@ const initialState = {
   error: '',
 }
 
-const friendlyError = (message) =>
-  message === 'Internal Server Error' ? 'Oops! Something went wrong.  Try again later.' : message
-
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case SIGNUP_SUCCESS:
@@ -22,7 +19,7 @@ const reducer = (state = initialState, action) => {
     case SIGNIN_FAILURE:
       return { ...state, error: 'Invalid email or password.' }
     case SIGNUP_FAILURE:
-      return { ...state, error: friendlyError(action.payload.message) }
+      return { ...state, error: action.payload.friendlyErr }
     case SIGNUP_MISMATCH:
       return { ...state, error: 'Passwords do not match.' }
     case SIGNOUT:

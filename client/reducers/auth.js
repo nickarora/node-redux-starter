@@ -1,14 +1,16 @@
-import { SIGNIN_SUCCESS } from 'constants'
+import { SIGNIN_SUCCESS, SIGNIN_FAILURE } from 'constants'
 
 const initialState = {
   authenticated: false,
-  message: '',
+  error: '',
 }
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case SIGNIN_SUCCESS:
-      return { ...state, authenticated: true }
+      return { authenticated: true, error: '' }
+    case SIGNIN_FAILURE:
+      return { ...state, error: 'Invalid email or password.' }
     default:
       return state
   }

@@ -5,7 +5,7 @@ import { Col, Row, Button } from 'react-bootstrap'
 const TodoForm = ({ createTodo }) =>
   <form className='todo-form' onSubmit={createTodo}>
     <Row>
-      <Col xs={11}>
+      <Col sm={10} className='input-col'>
         <Field
           className='form-control'
           component='input'
@@ -14,8 +14,8 @@ const TodoForm = ({ createTodo }) =>
           placeholder='I need to...'
         />
       </Col>
-      <Col xs={1}>
-        <Button className='pull-right' type='submit'>+</Button>
+      <Col sm={2}>
+        <Button className='btn-success btn-block' type='submit'>+</Button>
       </Col>
     </Row>
   </form>

@@ -34,7 +34,7 @@ class Todos extends Component {
 
     return (
       <Row>
-        <Col xs={8}>
+        <Col sm={8}>
           <h3>Todos</h3>
           <TodoForm createTodo={e => this.createTodo(e)} />
           <TodosList

@@ -1,8 +1,20 @@
+$screen-sm: 768px;
+
 .welcome-message
   font-style: italic;
 
 .todo-form
   margin-bottom: 1.5em;
+
+  button
+    margin-top: 1.5em;
+
+  @media (min-width: $screen-sm)
+    .input-col
+      padding-right: 0;
+
+    button
+      margin-top: 0;
 
 .todo
   .note
@@ -12,4 +24,5 @@
     &.complete
       text-decoration: line-through;
       color: #999;
+
 

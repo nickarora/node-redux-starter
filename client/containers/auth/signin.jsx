@@ -25,12 +25,12 @@ class Signin extends Component {
     return (
       <form onSubmit={(e) => submitSignin(e, this.props)}>
         <Row>
-          <Col xs={6}>
+          <Col sm={6}>
             <h3>Sign In</h3>
           </Col>
         </Row>
         <Row className='form-group'>
-          <Col xs={6}>
+          <Col sm={6}>
             <Field
               className='form-control'
               component='input'
@@ -41,7 +41,7 @@ class Signin extends Component {
           </Col>
         </Row>
         <Row className='form-group'>
-          <Col xs={6}>
+          <Col sm={6}>
             <Field
               className='form-control'
               component='input'
@@ -52,14 +52,14 @@ class Signin extends Component {
           </Col>
         </Row>
         <Row className='form-group'>
-          <Col xs={6}>
+          <Col sm={6}>
             <Button className='form-control' bsStyle='success' type='submit'>Sign In</Button>
           </Col>
         </Row>
         {
           this.props.auth.error &&
             <Row className='form-group'>
-              <Col xs={6}>
+              <Col sm={6}>
                 <div className='alert alert-danger text-center'>{this.props.auth.error}</div>
               </Col>
             </Row>

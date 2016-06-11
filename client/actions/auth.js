@@ -1,4 +1,5 @@
-import { SIGNIN } from 'constants'
+import { SIGNIN, SIGNOUT } from 'constants'
+import { browserHistory } from 'react-router'
 
 export const signin = credentials => (
   {
@@ -12,3 +13,11 @@ export const signin = credentials => (
     session: 'token',
   }
 )
+
+export const signout = () => {
+  sessionStorage.removeItem('token')
+  browserHistory.push('/')
+  return {
+    type: SIGNOUT,
+  }
+}

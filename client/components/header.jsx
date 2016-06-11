@@ -4,7 +4,12 @@ import { Nav, Navbar, NavItem } from 'react-bootstrap'
 
 import { IndexLinkContainer } from 'react-router-bootstrap'
 
-const Header = ({ authenticated }) => <Navbar>
+const handleSignout = (e, signout) => {
+  e.preventDefault()
+  signout()
+}
+
+const Header = ({ authenticated, signout }) => <Navbar>
   <Navbar.Header>
     <Navbar.Brand>
       <IndexLinkContainer to={{ pathname: '/' }}>
@@ -24,9 +29,9 @@ const Header = ({ authenticated }) => <Navbar>
     </IndexLinkContainer>
     {
       authenticated ?
-        <IndexLinkContainer to={{ pathname: '/signout' }}>
-          <NavItem eventKey={3} href='#'>Sign Out</NavItem>
-        </IndexLinkContainer> :
+        <NavItem eventKey={3} href='#' onClick={(e) => handleSignout(e, signout)}>
+          Sign Out
+        </NavItem> :
       [
         <IndexLinkContainer key={1} to={{ pathname: '/signin' }}>
           <NavItem eventKey={3} href='#'>Sign In</NavItem>
@@ -41,6 +46,7 @@ const Header = ({ authenticated }) => <Navbar>
 
 Header.propTypes = {
   authenticated: PropTypes.bool.isRequired,
+  signout: PropTypes.func.isRequired,
 }
 
 export default Header

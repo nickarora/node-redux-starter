@@ -1,4 +1,4 @@
-import { SIGNIN_SUCCESS, SIGNIN_FAILURE } from 'constants'
+import { SIGNIN_SUCCESS, SIGNIN_FAILURE, SIGNOUT } from 'constants'
 
 const initialState = {
   authenticated: !!sessionStorage.getItem('token'),
@@ -10,7 +10,9 @@ const reducer = (state = initialState, action) => {
     case SIGNIN_SUCCESS:
       return { authenticated: true, error: '' }
     case SIGNIN_FAILURE:
-      return { ...state, error: 'Invalid email or password.' }
+      return { authenticated: false, error: 'Invalid email or password.' }
+    case SIGNOUT:
+      return { authenticated: false, error: '' }
     default:
       return state
   }

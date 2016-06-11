@@ -1,10 +1,10 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 
 import { Nav, Navbar, NavItem } from 'react-bootstrap'
 
 import { IndexLinkContainer } from 'react-router-bootstrap'
 
-const Header = () => <Navbar>
+const Header = ({ authenticated }) => <Navbar>
   <Navbar.Header>
     <Navbar.Brand>
       <IndexLinkContainer to={{ pathname: '/' }}>
@@ -22,10 +22,17 @@ const Header = () => <Navbar>
     <IndexLinkContainer to={{ pathname: '/todos' }}>
       <NavItem eventKey={3} href='#'>Todos</NavItem>
     </IndexLinkContainer>
-    <IndexLinkContainer to={{ pathname: '/signin' }}>
-      <NavItem eventKey={3} href='#'>Signin</NavItem>
-    </IndexLinkContainer>
+    {
+      !authenticated &&
+        <IndexLinkContainer to={{ pathname: '/signin' }}>
+          <NavItem eventKey={3} href='#'>Sign In</NavItem>
+        </IndexLinkContainer>
+    }
   </Nav>
 </Navbar>
+
+Header.propTypes = {
+  authenticated: PropTypes.bool.isRequired,
+}
 
 export default Header

@@ -1,7 +1,7 @@
 import { SIGNIN_SUCCESS, SIGNIN_FAILURE } from 'constants'
 
 const initialState = {
-  authenticated: false,
+  authenticated: !!sessionStorage.getItem('token'),
   error: '',
 }
 

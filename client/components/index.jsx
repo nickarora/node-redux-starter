@@ -1,7 +1,8 @@
-export { default as AuthTextInput } from './auth/textinput'
-export { default as AuthErrorOutput } from './auth/erroroutput'
+export { default as AuthTextInput } from './auth/text_input'
+export { default as AuthErrorOutput } from './auth/error_output'
 export { default as AuthSubmit } from './auth/submit'
-export { default as AuthFormTitle } from './auth/formtitle'
+export { default as AuthFormTitle } from './auth/form_title'
+export { default as RequireAuth } from './auth/require_auth'
 
 export { default as Header } from './header'
 export { default as Home } from './home'

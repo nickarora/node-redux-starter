@@ -22,10 +22,10 @@ const Header = ({ authenticated, signout }) => <Navbar>
       <NavItem eventKey={1} href='#'>Home</NavItem>
     </IndexLinkContainer>
     <IndexLinkContainer to={{ pathname: '/counter' }}>
-      <NavItem eventKey={2} href='#'>Counter</NavItem>
+      <NavItem eventKey={2} href='#' disabled={!authenticated}>Counter</NavItem>
     </IndexLinkContainer>
     <IndexLinkContainer to={{ pathname: '/todos' }}>
-      <NavItem eventKey={3} href='#'>Todos</NavItem>
+      <NavItem eventKey={3} href='#' disabled={!authenticated}>Todos</NavItem>
     </IndexLinkContainer>
     {
       authenticated ?

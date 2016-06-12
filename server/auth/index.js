@@ -14,6 +14,10 @@ router.post('/signup', (req, res, next) => {
     res.status(422).send({ message: 'You must provide an email and password.' })
   }
 
+  if (password.length < 6) {
+    res.status(422).send({ message: 'Password must be at least 6 characters.' })
+  }
+
   if (!validateEmail(email)) {
     res.status(422).send({ message: 'You must provide a valid email address.' })
   }

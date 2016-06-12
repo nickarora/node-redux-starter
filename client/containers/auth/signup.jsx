@@ -1,10 +1,9 @@
 import React, { PropTypes, Component } from 'react'
-import { Field, reduxForm, reset } from 'redux-form'
-import { Col, Row, Button } from 'react-bootstrap'
-
+import { reduxForm, reset } from 'redux-form'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
+import { AuthTextInput, AuthErrorOutput, AuthSubmit, AuthFormTitle } from 'components'
 import * as AuthActions from 'actions/auth'
 
 const submitSignup = (e, { actions, form, resetForm }) => {
@@ -23,65 +22,46 @@ const submitSignup = (e, { actions, form, resetForm }) => {
   resetForm('signupForm')
 }
 
+const validate = values => {
+  const errors = {}
+
+  const required = ['email', 'password', 'passwordConfirmation']
+  required.forEach(field => {
+    if (!values[field]) errors[field] = 'Required.'
+  })
+
+  if (values.email && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+    errors.email = 'Invalid email address.'
+  }
+
+  if (values.password && values.password.length < 6) {
+    errors.password = 'Password must be at least 6 characters.'
+  }
+
+  if (values.password && values.passwordConfirmation &&
+    values.password !== values.passwordConfirmation) {
+    errors.passwordConfirmation = 'Passwords do not match.'
+  }
+
+  return errors
+}
+
 class Signup extends Component {
   componentWillMount() {
     this.props.actions.clearAuthErrors()
   }
 
   render() {
+    const { auth } = this.props
+
     return (
       <form onSubmit={(e) => submitSignup(e, this.props)}>
-        <Row>
-          <Col sm={6}>
-            <h3>Sign Up</h3>
-          </Col>
-        </Row>
-        <Row className='form-group'>
-          <Col sm={6}>
-            <Field
-              className='form-control'
-              component='input'
-              type='text'
-              name='email'
-              placeholder='email'
-            />
-          </Col>
-        </Row>
-        <Row className='form-group'>
-          <Col sm={6}>
-            <Field
-              className='form-control'
-              component='input'
-              type='password'
-              name='password'
-              placeholder='password'
-            />
-          </Col>
-        </Row>
-        <Row className='form-group'>
-          <Col sm={6}>
-            <Field
-              className='form-control'
-              component='input'
-              type='password'
-              name='passwordConfirmation'
-              placeholder='confirm password'
-            />
-          </Col>
-        </Row>
-        <Row className='form-group'>
-          <Col sm={6}>
-            <Button className='form-control' bsStyle='success' type='submit'>Sign Up</Button>
-          </Col>
-        </Row>
-        {
-          this.props.auth.error &&
-            <Row className='form-group'>
-              <Col sm={6}>
-                <div className='alert alert-danger text-center'>{this.props.auth.error}</div>
-              </Col>
-            </Row>
-        }
+        <AuthFormTitle title='Sign Up' />
+        <AuthTextInput name='email' type='text' placeholder='email' />
+        <AuthTextInput name='password' type='password' placeholder='password' />
+        <AuthTextInput name='passwordConfirmation' type='password' placeholder='confirm password' />
+        <AuthSubmit label='Sign Up' />
+        {auth.error && <AuthErrorOutput error={auth.error} />}
       </form>
     )
   }
@@ -105,4 +85,4 @@ const mapDispatchToProps = (dispatch) => ({
 })
 
 const connectedSignup = connect(mapStateToProps, mapDispatchToProps)(Signup)
-export default reduxForm({ form: 'signupForm' })(connectedSignup)
+export default reduxForm({ form: 'signupForm', validate })(connectedSignup)

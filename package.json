@@ -9,7 +9,7 @@
     "dev-client": "webpack-dev-server",
     "dev-server": "nodemon ./server",
     "start": "npm run build && node ./server",
-    "seed": "node server/tasks/seed-development.js",
+    "seed": "node server/tasks/seedDevelopment.js",
     "lint": "eslint . --ext .js --ext .jsx --cache || true",
     "test-client": "NODE_ENV=test karma start",
     "test-server": "NODE_ENV=test mocha server/test/index.js"

@@ -1,2 +1,2 @@
-export { default as userToken } from './user_token'
-export { default as validateEmail } from './validate_email'
+export { default as userToken } from './userToken'
+export { default as validateEmail } from './validateEmail'

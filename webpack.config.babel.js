@@ -30,7 +30,7 @@ const common = {
       PATHS.src,
       PATHS.node_modules,
     ],
-    extensions: ['', '.js', '.jsx', '.json', '.scss', '.sass'],
+    extensions: ['', '.js', '.json', '.scss', '.sass'],
   },
   module: {
     preLoaders: [
@@ -40,7 +40,7 @@ const common = {
         include: PATHS.src,
       },
       {
-        test: /\.jsx?$/,
+        test: /\.js$/,
         loaders: ['eslint'],
         include: [PATHS.src, PATHS.test],
       },
@@ -52,7 +52,7 @@ const common = {
         include: PATHS.src,
       },
       {
-        test: /\.jsx?$/,
+        test: /\.js$/,
         loaders: ['babel'],
         include: [PATHS.src, PATHS.test],
       },
@@ -73,7 +73,7 @@ const development = {
     'react-hot-loader/patch',
     'webpack-dev-server/client?http://localhost:8080',
     'webpack/hot/only-dev-server',
-    path.join(PATHS.src, 'index.jsx'),
+    path.join(PATHS.src, 'index.js'),
   ],
   devServer: {
     proxy: {
@@ -93,7 +93,7 @@ const development = {
 
 const production = {
   entry: [
-    path.join(PATHS.src, 'index.jsx'),
+    path.join(PATHS.src, 'index.js'),
   ],
 }
 

@@ -23,13 +23,22 @@ const app = new Express()
 
 // Middleware
 app.use(cors())
-app.use(morgan(process.env.NODE_ENV === 'development' ? 'dev' : 'common'))
+app.use(morgan(process.env.NODE_ENV === 'production' ? 'common' : 'dev'))
 app.use(bodyParser.json({ type: ['application/json'] }))
 
 // Routes
 app.use('/api', routes)
 app.use('/auth', auth)
+
+// Serve static assets from /dist
 app.use('/', Express.static(path.resolve(__dirname, '../dist')))
+
+// Allow react-router to handle all other requests
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, '../dist/index.html'))
+})
+
+// Error Handler catches bad API requests
 app.use(errorHandler)
 
 export default app

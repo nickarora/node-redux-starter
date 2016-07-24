@@ -5,12 +5,14 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack",
-    "start": "nodemon server/index.js",
-    "dev-server": "webpack-dev-server",
+    "dev": "concurrently --kill-others 'npm run dev-client' 'npm run dev-server'",
+    "dev-client": "webpack-dev-server",
+    "dev-server": "nodemon ./server",
+    "start": "npm run build && node ./server",
     "seed": "node server/tasks/seed-development.js",
     "lint": "eslint . --ext .js --ext .jsx --cache || true",
-    "test": "NODE_ENV=test karma start",
-    "api-test": "NODE_ENV=test mocha server/test/index.js"
+    "test-client": "NODE_ENV=test karma start",
+    "test-server": "NODE_ENV=test mocha server/test/index.js"
   },
   "repository": {
     "type": "git",
@@ -50,6 +52,7 @@
     "chai-enzyme": "^0.4.2",
     "chai-http": "^2.0.1",
     "cheerio": "^0.20.0",
+    "concurrently": "^2.2.0",
     "css-loader": "^0.23.1",
     "enzyme": "^2.2.0",
     "eslint": "^2.12.0",

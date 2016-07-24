@@ -1,10 +1,6 @@
 import 'isomorphic-fetch'
 import { browserHistory } from 'react-router'
 
-import config from 'config'
-
-const API_ROOT = config.endpoint
-
 const checkStatus = response => {
   if (!response.ok) {
     const error = new Error(response.statusText)
@@ -28,7 +24,6 @@ const apiMiddleware = () =>
 
     if (!api) return next(action)
 
-    const fullUrl = `${API_ROOT}${api}`
     const defaultParams = {
       headers: {
         'Content-Type': 'application/json',
@@ -50,7 +45,7 @@ const apiMiddleware = () =>
 
     next({ type: REQUEST })
 
-    return fetch(fullUrl, reqConfig)
+    return fetch(api, reqConfig)
     .then(checkStatus)
     .then(response => {
       applyRedirect(redirect, 'success')

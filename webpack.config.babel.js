@@ -4,7 +4,6 @@ import merge from 'webpack-merge'
 import autoprefixer from 'autoprefixer'
 
 const TARGET = process.env.NODE_ENV
-
 process.env.BABEL_ENV = TARGET
 
 const PATHS = {
@@ -77,6 +76,9 @@ const development = {
     path.join(PATHS.src, 'index.jsx'),
   ],
   devServer: {
+    proxy: {
+      '*': 'http://localhost:8000',
+    },
     contentBase: PATHS.dist,
     publicPath: '/',
     hot: true,
@@ -86,12 +88,6 @@ const development = {
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: JSON.stringify(TARGET),
-        PORT: JSON.stringify(process.env.PORT),
-      },
-    }),
   ],
 }
 

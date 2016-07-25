@@ -3,7 +3,7 @@ import { Strategy as JwtStrategy, ExtractJwt } from 'passport-jwt'
 
 const jwtOptions = {
   jwtFromRequest: ExtractJwt.fromHeader('authorization'),
-  secretOrKey: process.env.SK_API_KEY,
+  secretOrKey: process.env.AUTH_KEY,
 }
 
 const jwtLogin = new JwtStrategy(jwtOptions, (payload, done) => {

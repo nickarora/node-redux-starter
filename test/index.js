@@ -1,10 +1,19 @@
-// Test environment setup
-import React from 'react'
+/*
+ * Test Environment Setup
+ */
+import 'babel-polyfill'
+import chaiAsPromised from 'chai-as-promised'
 import chaiEnzyme from 'chai-enzyme'
+import React from 'react'
 
+chai.use(chaiAsPromised)
 chai.use(chaiEnzyme())
 
 global.React = React
+
+/*
+ * Require Tests
+ */
 
 // for use with karma-webpack-with-fast-source-maps
 const karmaWebpackManifest = []

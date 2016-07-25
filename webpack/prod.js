@@ -4,10 +4,20 @@ import ExtractTextPlugin from 'extract-text-webpack-plugin'
 import PATHS from './paths'
 
 const production = {
+  devtool: 'source-map',
+
   entry: [
     path.join(PATHS.src, 'index.js'),
   ],
+
   module: {
+    preLoaders: [
+      {
+        test: /\.css$|\.scss$|\.sass$/,
+        loaders: ['postcss'],
+        include: PATHS.src,
+      },
+    ],
     loaders: [
       {
         test: /\.css$|\.scss$|\.sass$/,
@@ -16,6 +26,7 @@ const production = {
       },
     ],
   },
+
   plugins: [
     new ExtractTextPlugin('styles.css'),
     new webpack.DefinePlugin({

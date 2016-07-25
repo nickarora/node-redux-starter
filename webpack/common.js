@@ -5,6 +5,8 @@ import PATHS from './paths'
 import path from 'path'
 
 const common = {
+  devtool: 'cheap-module-source-map',
+
   resolve: {
     root: [
       PATHS.src,
@@ -12,19 +14,8 @@ const common = {
     ],
     extensions: ['', '.js', '.json', '.css', '.scss', '.sass'],
   },
+
   module: {
-    preLoaders: [
-      {
-        test: /\.css$|\.scss$|\.sass$/,
-        loaders: ['postcss'],
-        include: PATHS.src,
-      },
-      {
-        test: /\.js$/,
-        loaders: ['eslint'],
-        include: [PATHS.src, PATHS.test],
-      },
-    ],
     loaders: [
       {
         test: /\.js$/,
@@ -37,9 +28,11 @@ const common = {
       },
     ],
   },
+
   postcss: () => [
     autoprefixer,
   ],
+
   plugins: [
     new HtmlWebpackPlugin({
       title: 'Node Redux Starter',

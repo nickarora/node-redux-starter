@@ -4,6 +4,7 @@ const sources = {
   entry: [
     'babel-polyfill',
   ],
+
   output: {
     path: PATHS.dist,
     filename: 'app.js',

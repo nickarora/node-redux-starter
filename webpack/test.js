@@ -6,6 +6,7 @@ const test = {
     'react/lib/ExecutionEnvironment': true,
     'react/lib/ReactContext': true,
   },
+
   module: {
     loaders: [
       {

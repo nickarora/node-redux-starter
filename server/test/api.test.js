@@ -8,29 +8,6 @@ import { Todo } from '../models'
 
 chai.use(chaiHttp)
 
-describe('Static', () => {
-  let server
-
-  beforeEach(() => {
-    delete require.cache[require.resolve('../server')]
-    server = require('../server').default
-  })
-
-  afterEach((done) => {
-    server.close(done)
-  })
-
-  it('responds to /', (done) => {
-    chai.request(server)
-      .get('/')
-      .end((err, res) => {
-        expect(err).to.be.null
-        expect(res).to.have.status(200)
-        done()
-      })
-  })
-})
-
 describe('Todos', () => {
   let server
 

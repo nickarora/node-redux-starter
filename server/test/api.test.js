@@ -29,16 +29,6 @@ describe('Static', () => {
         done()
       })
   })
-
-  it('404s unknown paths', (done) => {
-    chai.request(server)
-      .get('/foo/bar')
-      .end((err, res) => {
-        expect(err).to.not.be.null
-        expect(res).to.have.status(404)
-        done()
-      })
-  })
 })
 
 describe('Todos', () => {

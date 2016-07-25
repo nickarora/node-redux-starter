@@ -23,7 +23,7 @@ const setup = () => {
 
   return {
     component,
-    header: component.find('h1'),
+    header: component.find('h3'),
     buttons: component.find(Button),
   }
 }

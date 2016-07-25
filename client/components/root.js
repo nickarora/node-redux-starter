@@ -4,13 +4,15 @@ import { Router } from 'react-router'
 import getRoutes from 'routes'
 import { DevTools } from 'utils'
 
+const isProduction = () => process.env.NODE_ENV === 'production'
+
 const Root = ({ store, history }) =>
   <Provider store={store}>
     <div>
       <Router history={history}>
         {getRoutes()}
       </Router>
-      <DevTools />
+      {!isProduction() && <DevTools />}
     </div>
   </Provider>
 

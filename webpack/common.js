@@ -1,5 +1,7 @@
 import autoprefixer from 'autoprefixer'
+import CopyWebpackPlugin from 'copy-webpack-plugin'
 import PATHS from './paths'
+import path from 'path'
 
 const common = {
   resolve: {
@@ -7,7 +9,7 @@ const common = {
       PATHS.src,
       PATHS.node_modules,
     ],
-    extensions: ['', '.js', '.json', '.scss', '.sass'],
+    extensions: ['', '.js', '.json', '.css', '.scss', '.sass'],
   },
   module: {
     preLoaders: [
@@ -36,6 +38,11 @@ const common = {
   },
   postcss: () => [
     autoprefixer,
+  ],
+  plugins: [
+    new CopyWebpackPlugin([
+      { from: path.join(__dirname, '..', 'vendor'), to: PATHS.dist },
+    ]),
   ],
 }
 

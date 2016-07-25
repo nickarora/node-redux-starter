@@ -9,40 +9,44 @@ const handleSignout = (e, signout) => {
   signout()
 }
 
-const Header = ({ authenticated, signout }) => <Navbar>
-  <Navbar.Header>
-    <Navbar.Brand>
-      <IndexLinkContainer to={{ pathname: '/' }}>
-        <a>Node Redux Starter</a>
-      </IndexLinkContainer>
-    </Navbar.Brand>
-  </Navbar.Header>
-  <Nav>
-    <IndexLinkContainer to={{ pathname: '/' }}>
-      <NavItem eventKey={1} href='#'>Home</NavItem>
-    </IndexLinkContainer>
-    <IndexLinkContainer to={{ pathname: '/counter' }}>
-      <NavItem eventKey={2} href='#' disabled={!authenticated}>Counter</NavItem>
-    </IndexLinkContainer>
-    <IndexLinkContainer to={{ pathname: '/todos' }}>
-      <NavItem eventKey={3} href='#' disabled={!authenticated}>Todos</NavItem>
-    </IndexLinkContainer>
-    {
-      authenticated ?
-        <NavItem eventKey={3} href='#' onClick={(e) => handleSignout(e, signout)}>
-          Sign Out
-        </NavItem> :
-      [
-        <IndexLinkContainer key={1} to={{ pathname: '/signin' }}>
-          <NavItem eventKey={3} href='#'>Sign In</NavItem>
-        </IndexLinkContainer>,
-        <IndexLinkContainer key={2} to={{ pathname: '/signup' }}>
-          <NavItem eventKey={3} href='#'>Sign Up</NavItem>
-        </IndexLinkContainer>,
-      ]
-    }
-  </Nav>
-</Navbar>
+const Header = ({ authenticated, signout }) =>
+  <Navbar>
+    <Navbar.Header>
+      <Navbar.Brand>
+        <IndexLinkContainer to={{ pathname: '/' }}>
+          <a>Node Redux Starter</a>
+        </IndexLinkContainer>
+      </Navbar.Brand>
+      <Navbar.Toggle />
+    </Navbar.Header>
+    <Navbar.Collapse>
+      <Nav>
+        <IndexLinkContainer to={{ pathname: '/' }}>
+          <NavItem eventKey={1} href='#'>Home</NavItem>
+        </IndexLinkContainer>
+        <IndexLinkContainer to={{ pathname: '/counter' }}>
+          <NavItem eventKey={2} href='#' disabled={!authenticated}>Counter</NavItem>
+        </IndexLinkContainer>
+        <IndexLinkContainer to={{ pathname: '/todos' }}>
+          <NavItem eventKey={3} href='#' disabled={!authenticated}>Todos</NavItem>
+        </IndexLinkContainer>
+        {
+          authenticated ?
+            <NavItem eventKey={3} href='#' onClick={(e) => handleSignout(e, signout)}>
+              Sign Out
+            </NavItem> :
+          [
+            <IndexLinkContainer key={1} to={{ pathname: '/signin' }}>
+              <NavItem eventKey={3} href='#'>Sign In</NavItem>
+            </IndexLinkContainer>,
+            <IndexLinkContainer key={2} to={{ pathname: '/signup' }}>
+              <NavItem eventKey={3} href='#'>Sign Up</NavItem>
+            </IndexLinkContainer>,
+          ]
+        }
+      </Nav>
+    </Navbar.Collapse>
+  </Navbar>
 
 Header.propTypes = {
   authenticated: PropTypes.bool.isRequired,

@@ -1,5 +1,4 @@
 import autoprefixer from 'autoprefixer'
-import CopyWebpackPlugin from 'copy-webpack-plugin'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import PATHS from './paths'
 import path from 'path'
@@ -26,6 +25,10 @@ const common = {
         test: /\.json/,
         loaders: ['json'],
       },
+      {
+        test: /\.(eot|svg|ttf|woff|woff2)$/,
+        loader: 'file?name=public/fonts/[name].[ext]',
+      },
     ],
   },
 
@@ -38,9 +41,6 @@ const common = {
       title: 'Node Redux Starter',
       template: path.join(PATHS.src, 'index.html'),
     }),
-    new CopyWebpackPlugin([
-      { from: path.join(__dirname, '..', 'vendor'), to: PATHS.dist },
-    ]),
   ],
 }
 

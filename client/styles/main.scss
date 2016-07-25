@@ -18,42 +18,54 @@ $brand-info:            #5bc0de;
 $brand-warning:         #f0ad4e;
 $brand-danger:          #d9534f;
 
-.welcome-message
+.welcome-message {
   font-style: italic;
+}
 
 /* auth */
-.form-field-invalid
+.form-field-invalid {
   color: $brand-danger;
   margin-top: 6px;
+}
 
 /* header */
-.navbar-default .navbar-nav > .disabled
+.navbar-default .navbar-nav > .disabled {
   background: $gray-dark;
 
-  & > a
+  & > a {
     color: $gray;
+  }
+}
 
 /* todos */
-.todo-form
+.todo-form {
   margin-bottom: 1.5em;
 
-  button
+  button {
     margin-top: 1.5em;
+  }
 
-  @media (min-width: $screen-sm)
-    .input-col
+  @media (min-width: $screen-sm) {
+    .input-col {
       padding-right: 0;
+    }
 
-    button
+    button {
       margin-top: 0;
+    }
+  }
+}
 
-.todo
-  .note
+.todo {
+  .note {
     display: inline-block;
     margin-left: 1em;
 
-    &.complete
+    &.complete {
       text-decoration: line-through;
       color: $gray-darker;
+    }
+  }
+}
 
 

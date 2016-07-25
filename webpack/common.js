@@ -12,7 +12,7 @@ const common = {
   module: {
     preLoaders: [
       {
-        test: /\.scss$|\.sass$/,
+        test: /\.css$|\.scss$|\.sass$/,
         loaders: ['postcss'],
         include: PATHS.src,
       },
@@ -23,11 +23,6 @@ const common = {
       },
     ],
     loaders: [
-      {
-        test: /\.scss$|\.sass$/,
-        loaders: ['style', 'css', 'sass'],
-        include: PATHS.src,
-      },
       {
         test: /\.js$/,
         loaders: ['babel'],

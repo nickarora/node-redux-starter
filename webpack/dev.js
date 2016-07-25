@@ -21,6 +21,15 @@ const development = {
     progress: true,
     stats: 'errors-only',
   },
+  module: {
+    loaders: [
+      {
+        test: /\.css$|\.scss$|\.sass$/,
+        loaders: ['style', 'css', 'sass'],
+        include: PATHS.src,
+      },
+    ],
+  },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
   ],

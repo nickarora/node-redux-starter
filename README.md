@@ -1,5 +1,8 @@
 # Node-Redux-Starter
 
+#### Environment
+Before beginning, set the environment variables contained in `.env.sample` locally.
+
 #### Running Tests
 ```
 $ npm test

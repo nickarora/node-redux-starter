@@ -1,6 +1,7 @@
 .DS_Store
 node_modules/
 dist/app.js*
+dist/styles.css
 *.log
 .eslintcache
 .envrc

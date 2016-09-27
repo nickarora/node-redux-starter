@@ -1,17 +1,15 @@
 import knex from 'knex'
 import bookshelf from 'bookshelf'
+import modelBase from 'bookshelf-modelbase'
+import dbConfig from '../../db.config'
 
-const dbConfig = {
-  client: 'pg',
-  connection: process.env.DATABASE_URL || {
-    host: process.env.PG_HOST,
-    user: process.env.PG_USER,
-    password: process.env.PG_PASSWORD,
-    database: process.env.PG_DB,
-    charset: 'utf8',
-  },
-}
+const dbConnection = knex(dbConfig[process.env.NODE_ENV || 'development'])
+const db = bookshelf(dbConnection)
 
-const dbConnection = knex(dbConfig)
+// Resolve circular dependencies
+db.plugin('registry')
 
-export default bookshelf(dbConnection)
+// Add some nice features to bookshelf's base model
+db.plugin(modelBase.pluggable)
+
+export default db

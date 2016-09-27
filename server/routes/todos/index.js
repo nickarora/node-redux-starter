@@ -1,12 +1,20 @@
 import { Router } from 'express'
 import { Todo } from '../../models'
+import pgTodo from '../../models/pgTodo'
 
 const router = new Router()
 
 router.get('/', (req, res, next) =>
   Todo.find({}).sort({ createdAt: 'desc' })
     .then(
-      todos => res.status(200).json(todos),
+      todos => {
+        pgTodo.findAll()
+          .then(collection => {
+            console.log('pg', collection.models.map(model => model.attributes))
+            console.log('mongo', todos)
+            return res.status(200).json(collection.models.map(model => model.attributes))
+          })
+      },
       err => next(err)
     )
 )

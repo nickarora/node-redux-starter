@@ -8,6 +8,7 @@ import routes from './routes'
 import auth from './auth'
 
 import db from './config/db' // eslint-disable-line no-unused-vars
+import pgDb from './config/pgDb' // eslint-disable-line no-unused-vars
 
 const errorHandler = (error, req, res, next) => { // eslint-disable-line no-unused-vars
   if (error.status && error.message) {

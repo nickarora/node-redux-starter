@@ -29,7 +29,7 @@ router.post('/', (req, res, next) => {
 router.delete('/:id', (req, res, next) => {
   pgTodo
     .destroy({ id: req.params.id })
-    .then(_emptyTodo => res.status(200).json({ id: parseInt(req.params.id) }))
+    .then(_emptyTodo => res.status(200).json({ id: parseInt(req.params.id, 10) }))
     .catch(err => next(err))
 })
 

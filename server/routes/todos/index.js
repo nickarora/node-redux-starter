@@ -5,29 +5,20 @@ import pgTodo from '../../models/pgTodo'
 const router = new Router()
 
 router.get('/', (req, res, next) =>
-  Todo.find({}).sort({ createdAt: 'desc' })
-    .then(
-      todos => {
-        pgTodo.findAll()
-          .then(collection => {
-            console.log('pg', collection.models.map(model => model.attributes))
-            console.log('mongo', todos)
-            return res.status(200).json(collection.models.map(model => model.attributes))
-          })
-      },
-      err => next(err)
-    )
+  pgTodo
+    .findAll()
+    .then(collection =>
+        res.status(200).json(
+          collection.orderBy('created_at', 'DESC').serialize()
+        ))
+    .catch(err => next(err))
 )
 
 router.put('/:id', (req, res, next) =>
-  Todo.findOneAndUpdate(
-    { _id: req.params.id },
-    req.body.todo,
-    { new: true }
-  ).then(
-    updatedTodo => res.status(200).json(updatedTodo),
-    err => next(err)
-  )
+  pgTodo
+    .update(req.body.todo, { id: req.params.id })
+    .then(updatedTodo => res.status(200).json(updatedTodo.serialize()))
+    .catch(err => next(err))
 )
 
 router.post('/', (req, res, next) => {

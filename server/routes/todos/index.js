@@ -7,10 +7,8 @@ const router = new Router()
 router.get('/', (req, res, next) =>
   pgTodo
     .findAll()
-    .then(collection =>
-        res.status(200).json(
-          collection.orderBy('created_at', 'DESC').serialize()
-        ))
+    .then(collection => collection.orderBy('-created_at'))
+    .then(ordered => res.status(200).json(ordered.serialize()))
     .catch(err => next(err))
 )
 
@@ -23,16 +21,11 @@ router.put('/:id', (req, res, next) =>
 
 router.post('/', (req, res, next) => {
   const { todo } = req.body
-  const newTodo = new Todo({
-    note: todo.note,
-    complete: todo.complete,
-  })
 
-  newTodo.save()
-  .then(
-    insertedTodo => res.status(200).json(insertedTodo),
-    err => next(err)
-  )
+  pgTodo
+    .create(todo)
+    .then(savedTodo => res.status(200).json(savedTodo.serialize()))
+    .catch(err => next(err))
 })
 
 router.delete('/:id', (req, res, next) => {

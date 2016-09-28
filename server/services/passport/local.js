@@ -1,4 +1,5 @@
 import { User } from '../../models'
+// import User from '../../models/User'
 import LocalStrategy from 'passport-local'
 
 const localOptions = { usernameField: 'email' }

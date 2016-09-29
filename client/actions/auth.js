@@ -1,4 +1,4 @@
-import { CLEAR_AUTH_ERRORS, SIGNIN, SIGNOUT, SIGNUP, SIGNUP_MISMATCH } from 'constants'
+import { CLEAR_AUTH_ERRORS, SIGNIN, SIGNOUT, SIGNUP } from 'constants'
 import { browserHistory } from 'react-router'
 
 export const signin = credentials => (

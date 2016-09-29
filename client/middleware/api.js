@@ -1,12 +1,13 @@
 import 'isomorphic-fetch'
 import { browserHistory } from 'react-router'
+import { SIGNOUT } from 'constants'
 
 const checkStatus = response => {
   if (!response.ok) {
     const error = new Error(response.statusText)
     return response.json()
       .then(responseBody => {
-        error.friendlyErr = responseBody.message || 'Oops! Something went wrong. Try again later.'
+        error.message = responseBody.message || 'Oops! Something went wrong.'
         throw error
       })
   }
@@ -18,6 +19,10 @@ const applyRedirect = (redirect, type) => {
   if (redirect && redirect[type]) browserHistory.push(redirect[type])
 }
 
+const redirectToRoot = () => {
+  browserHistory.push('/')
+}
+
 const apiMiddleware = () =>
   next => action => {
     const { type, api, method, body, redirect, session } = action
@@ -27,6 +32,7 @@ const apiMiddleware = () =>
     const defaultParams = {
       headers: {
         'Content-Type': 'application/json',
+        Authorization: sessionStorage.getItem('token'),
       },
     }
 
@@ -56,6 +62,11 @@ const apiMiddleware = () =>
       })
     })
     .catch(error => {
+      if (error.message === 'Invalid Token') {
+        redirectToRoot()
+        next({ type: SIGNOUT })
+      }
+
       applyRedirect(redirect, 'failure')
       next({ type: FAILURE, payload: error })
     })

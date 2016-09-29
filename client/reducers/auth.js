@@ -19,9 +19,8 @@ const reducer = (state = initialState, action) => {
     case SIGNIN_SUCCESS:
       return { authenticated: true, error: '' }
     case SIGNIN_FAILURE:
-      return { ...state, error: 'Invalid email or password.' }
     case SIGNUP_FAILURE:
-      return { ...state, error: action.payload.friendlyErr }
+      return { ...state, error: action.payload.message }
     case SIGNOUT:
       return { authenticated: false, error: '' }
     default:

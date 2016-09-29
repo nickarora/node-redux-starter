@@ -1,6 +1,6 @@
-const createError = (message = 'Oops! Something went wrong!') => {
+const createError = (message = 'Oops! Something went wrong!', status = 422) => {
   const err = new Error(message)
-  err.status = 422
+  err.status = status
   return err
 }
 

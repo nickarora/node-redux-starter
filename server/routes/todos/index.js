@@ -1,4 +1,5 @@
 import { Router } from 'express'
+import { requireAuth } from '../../services/passport'
 import Todo from '../../models/Todo'
 
 const router = new Router()
@@ -18,7 +19,8 @@ router.put('/:id', (req, res, next) =>
     .catch(err => next(err))
 )
 
-router.post('/', (req, res, next) => {
+router.post('/', requireAuth, (req, res, next) => {
+  console.log('sup')
   Todo
     .create(req.body.todo)
     .then(savedTodo => res.status(200).json(savedTodo.serialize()))

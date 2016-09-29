@@ -12,13 +12,7 @@ const submitSignup = (e, { actions, form, resetForm }) => {
   if (!signupForm || !signupForm.values) return
 
   const { values } = signupForm
-
-  if (values.password !== values.passwordConfirmation) {
-    actions.signupMismatch()
-  } else {
-    actions.signup(values)
-  }
-
+  actions.signup(values)
   resetForm('signupForm')
 }
 
@@ -29,19 +23,6 @@ const validate = values => {
   required.forEach(field => {
     if (!values[field]) errors[field] = 'Required.'
   })
-
-  if (values.email && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-    errors.email = 'Invalid email address.'
-  }
-
-  if (values.password && values.password.length < 6) {
-    errors.password = 'Password must be at least 6 characters.'
-  }
-
-  if (values.password && values.passwordConfirmation &&
-    values.password !== values.passwordConfirmation) {
-    errors.passwordConfirmation = 'Passwords do not match.'
-  }
 
   return errors
 }

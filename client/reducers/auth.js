@@ -4,7 +4,6 @@ import {
   SIGNIN_FAILURE,
   SIGNUP_SUCCESS,
   SIGNUP_FAILURE,
-  SIGNUP_MISMATCH,
   SIGNOUT } from 'constants'
 
 const initialState = {
@@ -23,8 +22,6 @@ const reducer = (state = initialState, action) => {
       return { ...state, error: 'Invalid email or password.' }
     case SIGNUP_FAILURE:
       return { ...state, error: action.payload.friendlyErr }
-    case SIGNUP_MISMATCH:
-      return { ...state, error: 'Passwords do not match.' }
     case SIGNOUT:
       return { authenticated: false, error: '' }
     default:

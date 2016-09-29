@@ -35,12 +35,6 @@ export const signup = credentials => (
   }
 )
 
-export const signupMismatch = () => (
-  {
-    type: SIGNUP_MISMATCH,
-  }
-)
-
 export const clearAuthErrors = () => (
   {
     type: CLEAR_AUTH_ERRORS,

@@ -10,9 +10,9 @@ import auth from './auth'
 import db from './config/db' // eslint-disable-line no-unused-vars
 
 const errorHandler = (error, req, res, next) => { // eslint-disable-line no-unused-vars
-
+  console.log('err', error)
   if (error.status && error.message) {
-    return res.status(error.status).send(error.message).end()
+    return res.status(error.status).send({ message: error.message }).end()
   }
 
   return res.status(500).send({

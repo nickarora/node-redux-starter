@@ -1,6 +1,6 @@
 /* eslint-disable func-names, object-shorthand */
 import db from '../config/pgDb'
-// import Joi from 'joi'
+import Joi from 'joi'
 import Promise from 'bluebird'
 import bcryptNode from 'bcrypt-nodejs'
 
@@ -10,10 +10,10 @@ const SALT_ROUNDS = 10
 const User = db.Model.extend({
   tableName: 'users',
 
-  // validate: {
-  //   email: Joi.string().email(),
-  //   password: Joi.string().regex(/^[a-zA-Z0-9]{3,30}$/),
-  // },
+  validate: {
+    email: Joi.string().email(),
+    password: Joi.string().min(6),
+  },
 
   initialize: function() {
     this.on('saving', this.hashPassword)

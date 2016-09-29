@@ -1,6 +1,6 @@
 import { Router } from 'express'
 import { requireAuth } from '../../services/passport'
-import Todo from '../../models/Todo'
+import { Todo } from '../../models'
 
 const router = new Router()
 

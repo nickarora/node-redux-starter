@@ -1,4 +1,4 @@
-import User from '../../models/User'
+import { User } from '../../models'
 import LocalStrategy from 'passport-local'
 import { createError } from '../../util'
 

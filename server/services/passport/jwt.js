@@ -1,4 +1,4 @@
-import User from '../../models/User'
+import { User } from '../../models'
 import { Strategy as JwtStrategy } from 'passport-jwt'
 import { userToken, createError } from '../../util'
 

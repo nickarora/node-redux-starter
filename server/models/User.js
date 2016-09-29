@@ -1,5 +1,5 @@
 /* eslint-disable func-names, object-shorthand */
-import db from '../config/pgDb'
+import db from '../config/db'
 import Joi from 'joi'
 import Promise from 'bluebird'
 import bcryptNode from 'bcrypt-nodejs'
@@ -32,10 +32,6 @@ const User = db.Model.extend({
   comparePassword: function(candidatePassword) {
     const password = this.get('password')
     return bcrypt.compareAsync(candidatePassword, password)
-  },
-}, {
-  findByEmail: function(email, options) {
-    return this.forge({ email }).fetch(options)
   },
 })
 

@@ -1,38 +1,15 @@
-/* eslint-disable no-console */
-import mongoose from 'mongoose'
-import uriUtil from 'mongodb-uri'
+import knex from 'knex'
+import bookshelf from 'bookshelf'
+import modelBase from 'bookshelf-modelbase'
+import dbConfig from '../../db.config'
 
-switch (process.env.NODE_ENV) {
-  case 'production': {
-    const mongoUri = process.env.MONGOLAB_URI
-    const mongooseUri = uriUtil.formatMongoose(mongoUri)
-    const options = {}
-    mongoose.connect(mongooseUri, options)
-    break
-  }
-  case 'test': {
-    mongoose.connect('localhost', `${process.env.MONGO_DB_NAME}-test`)
-    mongoose.set('debug', false)
-    break
-  }
-  default: {
-    mongoose.connect('localhost', `${process.env.MONGO_DB_NAME}-development`)
-    mongoose.set('debug', false)
-  }
-}
+const dbConnection = knex(dbConfig[process.env.NODE_ENV || 'development'])
+const db = bookshelf(dbConnection)
 
-const db = mongoose.connection
+// Resolve circular dependencies
+db.plugin('registry')
 
-db.on('error', () => {
-  console.error.bind(console, 'connection error:')
-})
-
-db.on('disconnecting', () => {
-  console.log('Database', db.name, 'disconnecting.')
-})
-
-db.once('open', () => {
-  console.log('Connection to', db.name, 'established.')
-})
+// Add some nice features to bookshelf's base model
+db.plugin(modelBase.pluggable)
 
 export default db

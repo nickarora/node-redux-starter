@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import User from '../models/User'
+import { User } from '../models'
 import { userToken, transformError, createError } from '../util'
 
 import { requireSignin } from '../services/passport'

@@ -2,20 +2,19 @@
 
 exports.seed = function(knex, Promise) {
   return knex('todos').del()
-    .then(function() {
+    .then(function () {
       return knex('todos').insert({
-        note: 'First Todo',
+        note: 'todo1',
       })
     })
-    .then(function() {
+    .then(function () {
       return knex('todos').insert({
-        note: 'Second Todo',
-        complete: true,
+        note: 'todo2',
       })
     })
-    .then(function() {
+    .then(function () {
       return knex('todos').insert({
-        note: 'Third Todo',
+        note: 'todo3',
       })
     })
 };

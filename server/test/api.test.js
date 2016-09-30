@@ -1,29 +1,30 @@
 import chai, { expect } from 'chai'
 import chaiHttp from 'chai-http'
-
-import testData from '../tasks/fixtures/todos-test'
-import seed from '../tasks/seeders/todos'
-
-import { Todo } from '../models'
+import { Todo, User } from '../models'
+import { userToken } from '../util'
+import server from '../server'
+import db from '../config/db'
 
 chai.use(chaiHttp)
 
 describe('Todos', () => {
-  let server
+  const token = userToken({ attributes: { id: 1 } })
 
   beforeEach((done) => {
-    delete require.cache[require.resolve('../server')]
-    server = require('../server').default
-    seed(testData, done)
+    db.knex.migrate.rollback()
+      .then(() => db.knex.migrate.latest())
+      .then(() => db.knex.seed.run())
+      .then(() => done())
   })
 
   afterEach((done) => {
-    server.close(done)
+    db.knex.migrate.rollback().then(() => done())
   })
 
   it('should list all Todos on /api/todos GET', (done) => {
     chai.request(server)
       .get('/api/todos')
+      .set('authorization', token)
       .end((err, res) => {
         expect(res.body).to.have.length(3)
         done()
@@ -33,6 +34,7 @@ describe('Todos', () => {
   it('should create a new todo on /api/todos POST', (done) => {
     chai.request(server)
       .post('/api/todos')
+      .set('authorization', token)
       .send({
         todo: {
           note: 'todo4',
@@ -40,7 +42,7 @@ describe('Todos', () => {
         },
       })
       .end(() => {
-        Todo.find({}, (err, todos) => {
+        Todo.findAll().then(todos => {
           expect(todos.length).to.equal(4)
           done()
         })
@@ -48,11 +50,12 @@ describe('Todos', () => {
   })
 
   it('should delete a todo on /api/todos/:id DELETE', (done) => {
-    Todo.findOne({ note: 'todo1' }, (error, todo) => {
+    Todo.findOne({ note: 'todo1' }).then(todo => {
       chai.request(server)
-        .delete(`/api/todos/${todo.id}`)
+        .delete(`/api/todos/${todo.attributes.id}`)
+        .set('authorization', token)
         .end(() => {
-          Todo.find({}, (err, todos) => {
+          Todo.findAll().then(todos => {
             expect(todos.length).to.equal(2)
             done()
           })
@@ -61,17 +64,18 @@ describe('Todos', () => {
   })
 
   it('should update a todo on /api/todos/:id PUT', (done) => {
-    Todo.findOne({ note: 'todo1' }, (error, todo) => {
+    Todo.findOne({ note: 'todo1' }).then(todo => {
       chai.request(server)
-        .put(`/api/todos/${todo.id}`)
+        .put(`/api/todos/${todo.attributes.id}`)
+        .set('authorization', token)
         .send({
           todo: {
             note: 'new note',
           },
         })
         .end(() => {
-          Todo.findOne({ _id: todo.id }, (err, updatedTodo) => {
-            expect(updatedTodo.note).to.equal('new note')
+          Todo.findById(todo.attributes.id).then(updatedTodo => {
+            expect(updatedTodo.attributes.note).to.equal('new note')
             done()
           })
         })

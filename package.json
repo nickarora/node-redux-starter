@@ -16,9 +16,9 @@
     "seed:test": "knex seed:run --env test",
     "seed:production": "knex seed:run --env production",
     "lint": "eslint . --ext .js --ext .jsx --cache || true",
-    "test": "npm run test-client && npm run test-server",
-    "test-client": "karma start",
-    "test-server": "NODE_ENV=test mocha server/test/index.js"
+    "test": "npm run test:client && npm run test:server",
+    "test:client": "karma start",
+    "test:server": "NODE_ENV=test mocha server/test/index.js"
   },
   "repository": {
     "type": "git",
